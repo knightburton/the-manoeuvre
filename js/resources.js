@@ -7,13 +7,14 @@ game.resources = [
     { name: "level-one-background",         type:"image",   src: "data/img/map/level-one-background.png" },
 
     { name: "thevrjani",                    type:"image",   src: "data/img/sprite/thevrjani.png" },
+    { name: "door",                         type:"image",   src: "data/img/sprite/door.png" },
+    { name: "springs",                      type:"image",   src: "data/img/sprite/springs.png" },
+    { name: "keys",                         type:"image",   src: "data/img/sprite/keys.png" },
+    { name: "padlocks",                     type:"image",   src: "data/img/sprite/padlocks.png" },
+    { name: "cannon",                       type:"image",   src: "data/img/sprite/cannon.png" },
 
-    { name: "animations",                   type:"image",   src: "data/img/tileset/animations.png" },
-    { name: "complete-basic",               type:"image",   src: "data/img/tileset/complete-basic.png" },
-    { name: "complete-extra",               type:"image",   src: "data/img/tileset/complete-extra.png" },
-    { name: "complete-number-chain",        type:"image",   src: "data/img/tileset/complete-number-chain.png" },
-    { name: "complete-spikes",              type:"image",   src: "data/img/tileset/complete-spikes.png" },
-    { name: "spinner-animation-tileset",    type:"image",   src: "data/img/tileset/spinner-animation-tileset.png" },
+    { name: "tileset",                      type:"image",   src: "data/img/tileset/tileset.png" },
+    { name: "rotary-spike-animation",       type:"image",   src: "data/img/tileset/rotary-spike-animation.png" },
 
     /* Maps.
      * @example
@@ -28,8 +29,7 @@ game.resources = [
      * { name: "example01", type: "tsx", src: "data/map/example01.tsx" },
      * { name: "example01", type: "tsx", src: "data/map/example01.json" },
      */
-    { name: "animations",                   type: "tsx",    src: "data/map/animations.tsx" },
-    { name: "spinner-animation-tileset",    type: "tsx",    src: "data/map/spinner-animation-tileset.tsx" },
+    { name: "tileset",                      type: "tsx",    src: "data/map/tileset.tsx" },
 
 
     /* Background music.
