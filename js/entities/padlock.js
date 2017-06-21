@@ -48,7 +48,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
 
                         // avoid further collision
                         this.body.setCollisionMask(me.collision.types.NO_OBJECT);
-                        
+
                         this.renderable.flicker(400, (function () {
                             // remove the padlock from the map
                             me.game.world.removeChild(this);

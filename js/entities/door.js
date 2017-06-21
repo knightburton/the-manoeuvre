@@ -67,7 +67,7 @@ game.DoorEntity = me.Entity.extend({
                     //remove every key from the player
                     game.data.obtainedKeys = [];
                 }).bind(this));
-                
+
             } else {
                 //TODO: implement a basic HUD to display some message
             }

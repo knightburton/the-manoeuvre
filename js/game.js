@@ -20,15 +20,20 @@ var game = {
 
     // parse the color text to number
     parseColor : function (cs) {
-        if (cs === 'blue') {
-            return this.colors.blue;
-        } else if (cs === 'green') {
-            return this.colors.green;
-        } else if (cs === 'red') {
-            return this.colors.red;
-        } else {
-            return this.colors.yellow;
-        }
+      switch (cs) {
+        case 'blue':
+          return this.colors.blue;
+        break;
+        case 'green':
+          return this.colors.green;
+        break;
+        case 'red':
+          return this.colors.red;
+        break;
+        case 'yellow':
+          return this.colors.yellow;
+        break;
+      }
     },
 
     /**

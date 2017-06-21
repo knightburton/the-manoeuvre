@@ -110,7 +110,7 @@ game.ChestEntity = me.Entity.extend({
                             me.timer.setTimeout((function () {
                                 this.body.collisionType = me.collision.types.NO_OBJECT;
                             }).bind(this), 500);
-                            
+
                             break;
                         }
                     }

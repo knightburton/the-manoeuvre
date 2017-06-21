@@ -13,7 +13,7 @@ game.SpringEntity = me.Entity.extend({
         } else {
             this.type = 1;
         }
-        
+
         settings.image = "springs";
         settings.framewidth = 32;
         settings.frameheight = 32;
