@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-down" width="120" height="20" tilewidth="32" tileheight="32" nextobjectid="665">
+<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="left-down" width="120" height="20" tilewidth="32" tileheight="32" nextobjectid="671">
  <tileset firstgid="1" source="tileset.tsx"/>
  <imagelayer name="Parallax" offsetx="0" offsety="-1">
   <image source="../img/map/level-one-background.png" width="1024" height="512"/>
