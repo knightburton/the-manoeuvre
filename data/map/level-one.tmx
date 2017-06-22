@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="left-down" width="120" height="20" tilewidth="32" tileheight="32" nextobjectid="671">
+<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="left-down" width="120" height="20" tilewidth="32" tileheight="32" nextobjectid="676">
  <tileset firstgid="1" source="tileset.tsx"/>
  <imagelayer name="Parallax" offsetx="0" offsety="-1">
   <image source="../img/map/level-one-background.png" width="1024" height="512"/>
@@ -182,34 +182,14 @@
   <object id="644" name="rotaryChain" x="2016" y="192" width="256" height="256"/>
  </objectgroup>
  <objectgroup color="#ff0000" name="EnemyEntities">
-  <object id="420" name="spike" x="224" y="608" width="64" height="32">
-   <properties>
-    <property name="shapes" value="eval:[new me.Rect(0, 24, 64, 8)]"/>
-   </properties>
-  </object>
-  <object id="431" name="spike" x="416" y="608" width="64" height="32">
-   <properties>
-    <property name="shapes" value="eval:[new me.Rect(0, 24, 64, 8)]"/>
-   </properties>
-  </object>
-  <object id="432" name="spike" x="608" y="608" width="64" height="32">
-   <properties>
-    <property name="shapes" value="eval:[new me.Rect(0, 24, 64, 8)]"/>
-   </properties>
-  </object>
-  <object id="433" name="spike" x="800" y="608" width="64" height="32">
-   <properties>
-    <property name="shapes" value="eval:[new me.Rect(0, 24, 64, 8)]"/>
-   </properties>
-  </object>
   <object id="434" name="spike" x="608" y="256" width="64" height="32">
    <properties>
-    <property name="shapes" value="eval:[new me.Rect(0, 24, 64, 8)]"/>
+    <property name="shapes" value="eval:[new me.Rect(0, 16, 64, 16)]"/>
    </properties>
   </object>
   <object id="486" name="spike" x="512" y="320" width="64" height="32">
    <properties>
-    <property name="shapes" value="eval:[new me.Rect(0, 0, 64, 8)]"/>
+    <property name="shapes" value="eval:[new me.Rect(0, 0, 64, 16)]"/>
    </properties>
   </object>
   <object id="553" name="cannonSpike" x="1056" y="32" width="32" height="608">
@@ -233,37 +213,34 @@
    </properties>
   </object>
   <object id="590" name="spike" x="32.0304" y="188.905">
-   <polygon points="-0.0303955,-0.018193 6.782,-6.56037 6.78495,-22.3968 55.4149,-22.3809 62.2197,-28.905 -0.0303955,-28.905"/>
+   <polygon points="-0.0303955,0.075557 12.0632,-5.90412 24.0662,-16.9281 57.0087,-16.8809 61.9385,-28.8425 -0.0303955,-28.905"/>
   </object>
   <object id="592" name="spike" x="224" y="285.696">
-   <polygon points="0,0 6.72993,-6.70925 6.7337,-22.994 24.0452,-22.994 30.7789,-29.6996 -0.00375764,-29.6996"/>
-  </object>
-  <object id="594" name="spike" x="256" y="254.043">
-   <polygon points="0,0 6.70142,-6.78783 6.70516,-23.2633 23.9433,-23.2633 30.6484,-30.0474 -0.00374172,-30.0474"/>
+   <polygon points="0,0 12.0633,-5.66481 15.5781,-16.2829 25.0674,-17.7718 30.7789,-29.6996 -0.00375764,-29.6996"/>
   </object>
   <object id="597" name="spike" x="288" y="193.261">
-   <polygon points="0,0 6.82609,6.39755 6.82227,21.9431 0,28.3478"/>
+   <polygon points="-0.0222222,0.666667 12.0483,5.68644 12.0445,22.6987 0.0222222,27.77"/>
   </object>
   <object id="599" name="spike" x="352" y="190.739">
-   <polygon points="0,0 -6.90918,-6.35212 -6.91304,-21.7751 0,-28.1343"/>
+   <polygon points="0,-0.734375 -12.0029,-5.82087 -12.0242,-22.7418 -0.0111111,-27.7454"/>
   </object>
   <object id="600" name="spike" x="416.008" y="189.383">
-   <polygon points="0,0 6.64082,-6.63682 6.64453,-22.7458 23.7268,-22.7458 30.3713,-29.3789 -0.00370789,-29.3789"/>
+   <polygon points="0,-0.34375 12.0471,-5.48057 13.957,-16.3396 25.0081,-17.4646 29.9651,-29.4102 -0.00370789,-29.3789"/>
   </object>
   <object id="601" name="spike" x="385.313" y="416">
-   <polygon points="0,0 6.72038,-6.9375 23.0081,-6.93362 30.6576,-6.9375 30.6875,0"/>
+   <polygon points="0.644444,-0.0444444 5.7426,-12.0486 22.7192,-12.0225 30.6576,-6.9375 30.6875,0"/>
   </object>
   <object id="602" name="spike" x="704" y="349.938">
-   <polygon points="0,0 6.73647,-6.76389 6.74023,-23.1813 24.0685,-23.1813 30.8087,-29.9414 -0.00376129,-29.9414"/>
+   <polygon points="0.03125,-0.9375 11.9552,-5.95139 13.3965,-17.8063 24.9747,-17.9938 30.0275,-29.9101 -0.00376129,-29.9414"/>
   </object>
   <object id="603" name="spike" x="608" y="350.688">
-   <polygon points="0,0 -6.88678,-6.70914 -6.89063,-23.9671 -31.4923,-23.9671 -31.5,-30.6875 0,-30.6875"/>
+   <polygon points="-0.0869565,-0.73913 -12.0172,-5.75262 -23.0645,-18.6628 -32.014,-18.4888 -32.0217,-30.6875 0,-30.6875"/>
   </object>
   <object id="606" name="spike" x="502.936" y="409.008">
-   <polygon points="0,0 -16.2426,-0.0117188 -16.2426,-57.0117 -22.936,-57.0078 -22.936,6.99219 6.70461,6.99219"/>
+   <polygon points="1.15625,-4.96875 -10.9301,-7.48047 -10.8988,-57.0742 -22.936,-57.0078 -22.936,6.99219 6.14211,6.99219"/>
   </object>
   <object id="608" name="spike" x="480" y="351.375">
-   <polygon points="0,0 6.70296,-0.00765991 6.70296,-24.5079 30.625,-24.5041 30.625,-31.375 0,-31.375"/>
+   <polygon points="0,0 11.9842,-0.0389099 11.9842,-17.5079 24.9688,-19.3791 30.625,-31.375 0,-31.375"/>
   </object>
   <object id="614" name="floatingSpike" x="2784" y="416" width="32" height="32">
    <properties>
@@ -276,16 +253,16 @@
    </properties>
   </object>
   <object id="616" name="spike" x="1238.72" y="569.378">
-   <polygon points="0,0 -46.6185,-0.0110917 -53.2783,6.62172 6.67094,6.62172"/>
+   <polygon points="1.17391,-5.34783 -47.8359,-5.35892 -53.2783,6.62172 6.27964,6.57824"/>
   </object>
   <object id="618" name="spike" x="1367.18" y="569.562">
-   <polygon points="0,0 -47.2989,-0.0107782 -54.0559,6.43453 6.7683,6.43453"/>
+   <polygon points="0.6875,-5.5625 -48.1114,-5.66703 -53.2122,6.43453 5.86205,6.43453"/>
   </object>
   <object id="619" name="spike" x="1623.04" y="569.545">
-   <polygon points="0,0 -46.8085,-0.0108067 -53.4954,6.45155 6.69812,6.45155"/>
+   <polygon points="1,-5.47826 -47.852,-5.6195 -53.0171,6.45155 6.00348,6.455"/>
   </object>
   <object id="620" name="spike" x="1751.11" y="569.545">
-   <polygon points="0,0 -46.9499,-0.0108067 -53.657,6.45155 6.71835,6.45155"/>
+   <polygon points="0.866667,-5.55556 -48.0388,-5.58858 -53.1681,6.38488 5.91835,6.47377"/>
   </object>
   <object id="624" name="floatingSpike" x="2351" y="384">
    <polygon points="0,0 2,0.00390625 10.9961,-6.00391 17,-15.0039 17,-17 10.9961,-26 2.00391,-32 0.00390625,-32 -8.99609,-26 -15,-16.9961 -14.9961,-15.0039 -9.00781,-6"/>
@@ -336,6 +313,29 @@
    </properties>
   </object>
   <object id="660" name="cannonSpike" x="2432" y="32" width="32" height="480"/>
+  <object id="671" name="spike" x="255.999" y="253.709">
+   <polygon points="0,0 12.0633,-5.66481 15.5781,-16.2829 25.0674,-17.7718 30.7789,-29.6996 -0.00375764,-29.6996"/>
+  </object>
+  <object id="672" name="spike" x="224" y="608" width="64" height="32">
+   <properties>
+    <property name="shapes" value="eval:[new me.Rect(0, 16, 64, 16)]"/>
+   </properties>
+  </object>
+  <object id="673" name="spike" x="416" y="608" width="64" height="32">
+   <properties>
+    <property name="shapes" value="eval:[new me.Rect(0, 16, 64, 16)]"/>
+   </properties>
+  </object>
+  <object id="674" name="spike" x="608" y="608" width="64" height="32">
+   <properties>
+    <property name="shapes" value="eval:[new me.Rect(0, 16, 64, 16)]"/>
+   </properties>
+  </object>
+  <object id="675" name="spike" x="800" y="608" width="64" height="32">
+   <properties>
+    <property name="shapes" value="eval:[new me.Rect(0, 16, 64, 16)]"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Chains-foreground" width="120" height="20">
   <data encoding="base64">
