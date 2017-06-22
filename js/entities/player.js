@@ -77,8 +77,7 @@ game.PlayerEntity = me.Entity.extend({
     this.renderable.addAnimation('walk', [10, 11, 12, 13, 15, 16, 17, 18], 100);
     this.renderable.addAnimation('jump', [3]);
     this.renderable.addAnimation('crouch', [{name: 5, delay: 2000}, {name: 6, delay: 2000}, {name: 7, delay: 250}, {name: 8, delay: 250}]);
-    this.renderable.addAnimation('die', [20, 21, 22, 23, 24, 25, 26, 27 ,28, 29, 30 ,31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 25);
-    this.renderable.addAnimation('respawn', [49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20], 25);
+    this.renderable.addAnimation('die', [20, 21, 22, 23, 24, {name: 19, delay: 500}], 100);
 
     // Set the current animation.
     this.renderable.setCurrentAnimation('idle');
@@ -168,6 +167,10 @@ game.PlayerEntity = me.Entity.extend({
     this.dying = false;
     this.respawning = true;
 
+    // Set the velocity back to normal.
+    this.body.setVelocity(this.WALK_SPEED, this.VERTICAL_SPEED);
+    this.body.setFriction(1, 0);
+
     // Reset the entity position to the spawn position.
     this.pos.x = this.spawnPosition.x;
     this.pos.y = this.spawnPosition.y;
@@ -178,10 +181,6 @@ game.PlayerEntity = me.Entity.extend({
 
     // Turn back the further collision.
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
-
-    // Set the velocity back to normal.
-    this.body.setVelocity(this.WALK_SPEED, this.VERTICAL_SPEED);
-    this.body.setFriction(1, 0);
   },
 
   /**
@@ -190,9 +189,6 @@ game.PlayerEntity = me.Entity.extend({
   update : function (dt) {
     // If the entity is dying.
     if (this.dying) {
-      this.renderable.flicker(100, (function () {
-        this.reset();
-      }).bind(this));
       if (!this.renderable.isCurrentAnimation("die")) {
         this.renderable.setCurrentAnimation("die", (function () {
           this.reset();
@@ -200,11 +196,8 @@ game.PlayerEntity = me.Entity.extend({
       }
       // If the entity is respawning.
     } else if (this.respawning) {
-      if (!this.renderable.isCurrentAnimation('respawn')) {
-        this.renderable.setCurrentAnimation('respawn', (function () {
-          this.respawning = false;
-        }).bind(this));
-      }
+        this.renderable.setCurrentAnimation('idle');
+        this.respawning = false;
     } else {
       // If the user press a key.
       if (me.input.isKeyPressed('jump')) {
