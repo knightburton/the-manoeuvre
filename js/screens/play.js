@@ -3,6 +3,9 @@ game.PlayScreen = me.ScreenObject.extend({
      *  action to perform on state change
      */
     onResetEvent: function() {
+        // Play audio track.
+        me.audio.playTrack("arpanauts");
+
         // load the first level
         me.levelDirector.loadLevel("level-one");
 
@@ -20,5 +23,8 @@ game.PlayScreen = me.ScreenObject.extend({
     onDestroyEvent: function() {
         // remove the HUD from the game world
         me.game.world.removeChild(this.HUD);
+
+        // stop the current audio track
+        me.audio.stopTrack();
     }
 });

@@ -72,6 +72,9 @@ game.KeyEntity = me.CollectableEntity.extend({
     onCollision : function (/*response*/) {
         if (game.data.obtainedKeys.indexOf(this.color) === -1) {
             game.data.obtainedKeys.push(this.color);
+
+            // Play a key collected sound.
+            me.audio.play("collect");
         }
 
         //avoid further collision and delete it

@@ -14,7 +14,7 @@ game.PlayerEntity = me.Entity.extend({
         // define the shapes
         this.normalShape = new me.Rect(6, 0, 26, 64);
         this.crouchShape = new me.Rect(6, 32, 26, 32);
-        
+
         // reduce the entity's "hitbox"
         settings.shapes = [this.normalShape];
 
@@ -26,7 +26,7 @@ game.PlayerEntity = me.Entity.extend({
         // store some information about spawn
         this.spawnPosition = new me.Vector2d(x, y);
         this.spawnGravity = this.body.gravity;
-        
+
         // set the multiple jump
         this.multipleJump = 1;
 
@@ -126,6 +126,9 @@ game.PlayerEntity = me.Entity.extend({
     jump : function () {
         this.body.jumping = true;
         if (this.multipleJump <= 2) {
+            // Play a jump sound.
+            me.audio.play("jump");
+
             // easy "math" for double jump
             this.body.vel.y -= (this.body.maxVel.y * this.multipleJump++) * me.timer.tick;
             if (!this.renderable.isCurrentAnimation('jump')) {
@@ -138,6 +141,9 @@ game.PlayerEntity = me.Entity.extend({
      * kill the entity
      */
     die : function () {
+        // Play a hurt sound.
+        me.audio.play("hurt");
+
         // increase the dc
         game.data.deathCounter++;
 

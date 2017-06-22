@@ -36,11 +36,15 @@ game.resources = [
      * @example
      * { name: "example_bgm", type: "audio", src: "data/bgm/" },
      */
+    { name: "arpanauts", type: "audio", src: "data/bgm/arpanauts.ogg" },
 
     /* Sound effects.
      * @example
      * { name: "example_sfx", type: "audio", src: "data/sfx/" }
      */
+    { name: "collect", type: "audio", src: "data/sfx/collect.ogg" },
+    { name: "hurt", type: "audio", src: "data/sfx/hurt.ogg" },
+    { name: "jump", type: "audio", src: "data/sfx/jump.ogg" },
 
     /* Atlases
      * @example

@@ -60,7 +60,7 @@ var game = {
         }
 
         // Initialize the audio.
-        me.audio.init("mp3,ogg");
+        me.audio.init("ogg,mp3");
 
         // set and load all resources.
         me.loader.preload(game.resources, this.loaded.bind(this));
