@@ -1,91 +1,99 @@
 /**
- * RotarySpike Entity
- */
+* RotarySpike Entity
+*/
 game.RotarySpikeEntity = me.Entity.extend({
 
-    /**
-     * Constructor
-     */
-    init : function (x, y, settings) {
-        settings.image = "tileset";
+  /**
+  * Constructor
+  */
+  init : function(x, y, settings) {
+    settings.image = "tileset";
 
-        // Adjust the size setting information to match the sprite size.
-        settings.framewidth = settings.width = 32;
-        settings.frameheight = settings.height = 32;
-        settings.anchorPoint = new me.Vector2d(0.5, 0.5);
+    // Adjust the size setting information to match the sprite size.
+    settings.framewidth = settings.width = 32;
+    settings.frameheight = settings.height = 32;
+    settings.anchorPoint = new me.Vector2d(0.5, 0.5);
 
-        // redefine the shapes.
-        settings.shapes = [new me.Rect(0, 0, settings.framewidth, settings.frameheight)];
+    // redefine the shapes.
+    settings.shapes = [
+      new me.Rect(0, 0, settings.framewidth, settings.frameheight)
+    ];
 
-        // Call the constructor.
-        this._super(me.Entity, 'init', [x, y , settings]);
-        this.name = 'rotarySpike';
+    // Call the constructor.
+    this._super(me.Entity, 'init', [x, y , settings]);
+    this.name = 'rotarySpike';
 
-        // save the start position.
-        this.startX = this.pos.x;
-        this.startY = this.pos.y;
+    // save the start position.
+    this.startX = this.pos.x;
+    this.startY = this.pos.y;
 
-        // Fix the spike on the map.
-        this.body.setVelocity(0, 0);
-        this.body.setMaxVelocity(0, 0);
-        this.body.garavity = 0;
-        this.body.collisionType = me.collision.types.ENEMY_OBJECT;
+    // Fix the spike on the map.
+    this.body.setVelocity(0, 0);
+    this.body.setMaxVelocity(0, 0);
+    this.body.garavity = 0;
 
-        // ALWAYS update.
-        this.alwaysUpdate = true;
+    this.body.collisionType = me.collision.types.ENEMY_OBJECT;
 
-        this.renderable.addAnimation('idle', [132]);
-        this.renderable.setCurrentAnimation('idle');
+    // ALWAYS update.
+    this.alwaysUpdate = true;
 
-        // Define the circle path variables.
-        this.circleAngleStep = 15;
-        this.circleAngle = 360 - this.circleAngleStep;
-        this.circleRadius = 112;
-        this.circleCenterX = this.startX + 128 - 16;
-        this.circleCenterY = this.startY + 128 - 16;
+    this.renderable.addAnimation('idle', [132]);
+    this.renderable.setCurrentAnimation('idle');
 
-        // Start moving the spike along the circle path.
-        me.timer.setInterval((function () {
-            this.calculatePosition();
-        }).bind(this), 100);
-    },
+    // Define the circle path variables.
+    this.circleAngleStep = 15;
+    this.circleAngle = 360 - this.circleAngleStep;
+    this.circleRadius = 112;
+    this.circleCenterX = this.startX + 128 - 16;
+    this.circleCenterY = this.startY + 128 - 16;
 
-    /**
-     * Calculate the spike actual position based on the circle path.
-     */
-    calculatePosition : function () {
-        this.pos.x = this.circleCenterX + Math.cos(this.circleAngle * Math.PI / 180) * this.circleRadius;
-        this.pos.y = this.circleCenterY + Math.sin(this.circleAngle * Math.PI / 180) * this.circleRadius;
+    // Start moving the spike along the circle path.
+    me.timer.setInterval(() => {
+      this.calculatePosition();
+    }, 100);
+  },
 
-        // Reset or incriease the angle.
-        if (this.circleAngle == 0) {
-            this.circleAngle = 360 - this.circleAngleStep;
-        } else {
-            this.circleAngle -= this.circleAngleStep;
-        }
-    },
+  /**
+  * Calculate the spike actual position based on the circle path.
+  */
+  calculatePosition : function() {
+    this.pos.x = this.circleCenterX
+                 + Math.cos(this.circleAngle * Math.PI / 180)
+                 * this.circleRadius;
 
-    /**
-     * Update the entity.
-     */
-    update : function (dt) {
+    this.pos.y = this.circleCenterY
+                 + Math.sin(this.circleAngle
+                 * Math.PI / 180)
+                 * this.circleRadius;
 
-        // Apply physics to the body (this moves the entity).
-        this.body.update(dt);
-
-        // Handle collisions against other shapes.
-        me.collision.check(this);
-
-        // Return true if we moved or if the renderable was updated.
-        return (this._super(me.Entity, 'update', [dt]));
-    },
-
-    /**
-     * Colision handler
-     * (called when colliding with other objects).
-     */
-    onCollision : function (response, other) {
-        // Make all other objects solid.
-        return false;
+    // Reset or incriease the angle.
+    if (this.circleAngle == 0) {
+      this.circleAngle = 360 - this.circleAngleStep;
+    } else {
+      this.circleAngle -= this.circleAngleStep;
     }
+  },
+
+  /**
+  * Update the entity.
+  */
+  update : function(dt) {
+
+    // Apply physics to the body (this moves the entity).
+    this.body.update(dt);
+
+    // Handle collisions against other shapes.
+    me.collision.check(this);
+
+    // Return true if we moved or if the renderable was updated.
+    return (this._super(me.Entity, 'update', [dt]));
+  },
+
+  /**
+  * Collision handler
+  */
+  onCollision : function(response, other) {
+    // Make all other objects solid.
+    return false;
+  }
 });

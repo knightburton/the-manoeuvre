@@ -39,7 +39,11 @@ game.HUD.DeathItem = me.Renderable.extend({
     this._super(me.Renderable, 'init', [x, y, 5, 5]);
 
     // Create the font object.
-    this.font = new me.BitmapFont(me.loader.getBinary('PressStart2P'), me.loader.getImage('PressStart2P'), 1, "left", "bottom");
+    this.font = new me.BitmapFont(
+      me.loader.getBinary('PressStart2P'),
+      me.loader.getImage('PressStart2P'),
+      1, "left", "bottom"
+    );
 
     // Local copy of the global score.
     this.dc = -1;
@@ -48,7 +52,7 @@ game.HUD.DeathItem = me.Renderable.extend({
   /**
   * Update function.
   */
-  update : function () {
+  update : function() {
     // We don't do anything fancy here, so just
     // return true if the score has been updated.
     if (this.dc !== game.data.deathCounter) {
@@ -61,10 +65,11 @@ game.HUD.DeathItem = me.Renderable.extend({
   /**
   * Draw the score.
   */
-  draw : function (context) {
+  draw : function(context) {
     // This.pos.x, this.pos.y are the relative position
     // from the screen right bottom.
-    this.font.draw (context, "Deaths: " + this.dc, this.pos.x, me.game.viewport.height + this.pos.y - 10);
+    this.font.draw(context, "Deaths: " + this.dc, this.pos.x,
+                   me.game.viewport.height + this.pos.y - 10);
   }
 
 });
@@ -83,17 +88,20 @@ game.HUD.KeyItem = me.Renderable.extend({
     this._super(me.Renderable, 'init', [x, y, 5, 5]);
 
     // Create the font object.
-    this.font = new me.BitmapFont(me.loader.getBinary('PressStart2P'), me.loader.getImage('PressStart2P'), 1, "left", "bottom");
+    this.font = new me.BitmapFont(
+      me.loader.getBinary('PressStart2P'),
+      me.loader.getImage('PressStart2P'),
+      1, "left", "bottom"
+    );
 
-    this.preloadKeySprites = [];
-    for (var key in game.colors) {
-      var spr = new me.Sprite(0, 0, {
+    this.preloadKeys = [];
+    for (let key in game.colors) {
+      this.preloadKeys.push(new me.Sprite(0, 0, {
         image : "keys",
         framewidth : 32,
         frameheight : 32,
         anchorPoint : new me.Vector2d(0.5, 0.5)
-      });
-      this.preloadKeySprites.push(spr);
+      }));
     }
 
     // Local copy of the global keys.
@@ -103,31 +111,35 @@ game.HUD.KeyItem = me.Renderable.extend({
   /**
   * Update function.
   */
-  update : function (dt) {
+  update : function(dt) {
     // We don't do anything fancy here, so just
     // return true if the keys array has been updated.
-    if (this.keys.length !== game.data.obtainedKeys) {
-      this.keys = [];
-      for (var i = 0; i < game.data.obtainedKeys.length; i++) {
-        this.keys[i] = game.data.obtainedKeys[i];
-      }
+    if (!((this.keys.length == game.data.obtainedKeys.length)
+           && this.keys.every((element, index) => {
+          return element === game.data.obtainedKeys[index];
+    }))) {
+      this.keys = game.data.obtainedKeys.slice();
+
       return true;
     }
+
     return false;
   },
 
   /**
   * Draw the score.
   */
-  draw : function (context) {
+  draw : function(context) {
     // This.pos.x, this.pos.y are the relative position
     // from the screen right bottom.
-    this.font.draw (context, "Keys: ", this.pos.x, me.game.viewport.height + this.pos.y - 25);
-    for (var i = 0; i < this.keys.length; i++) {
-      this.preloadKeySprites[this.keys[i]].pos.x = this.pos.x + 90 + (32 * i);
-      this.preloadKeySprites[this.keys[i]].pos.y = me.game.viewport.height + this.pos.y - 30;
-      this.preloadKeySprites[this.keys[i]].setAnimationFrame(12 * this.keys[i]);
-      this.preloadKeySprites[this.keys[i]].draw(context);
+    this.font.draw(context, "Keys: ", this.pos.x,
+                   me.game.viewport.height + this.pos.y - 25);
+
+    for (let [i, value] of this.keys.entries()) {
+      this.preloadKeys[value].pos.x = this.pos.x + 90 + (32 * i);
+      this.preloadKeys[value].pos.y = me.game.viewport.height + this.pos.y - 30;
+      this.preloadKeys[value].setAnimationFrame(12 * value);
+      this.preloadKeys[value].draw(context);
     }
   }
 

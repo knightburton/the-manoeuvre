@@ -6,7 +6,7 @@ game.RotaryChainEntity = me.Entity.extend({
   /**
   * Constructor
   */
-  init : function (x, y, settings) {
+  init : function(x, y, settings) {
     settings.image = "rotary-spike-animation";
     settings.framewidth = 256;
     settings.frameheight = 256;
@@ -25,14 +25,20 @@ game.RotaryChainEntity = me.Entity.extend({
     // ALWAYS update.
     this.alwaysUpdate = true;
 
-    this.renderable.addAnimation('rotate', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], 100);
+    this.renderable.addAnimation('rotate',
+      [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23
+      ], 100
+    );
     this.renderable.setCurrentAnimation('rotate');
   },
 
   /**
   * Update the entity.
   */
-  update : function (dt) {
+  update : function(dt) {
 
     // apply physics to the body (this moves the entity).
     this.body.update(dt);
@@ -45,10 +51,9 @@ game.RotaryChainEntity = me.Entity.extend({
   },
 
   /**
-  * Colision handler
-  * (called when colliding with other objects).
+  * Collision handler
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     // Make all other objects solid.
     return false;
   }

@@ -5,7 +5,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
   /**
   * Constructor
   */
-  init: function (x, y, settings) {
+  init: function(x, y, settings) {
     this.color = game.parseColor(settings.color);
     this.doorNumber = settings.doorNumber;
 
@@ -44,7 +44,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
   * Open the padlock and remove from the world.
   */
   open: function() {
-    var index = game.data.obtainedKeys.indexOf(this.color);
+    let index = game.data.obtainedKeys.indexOf(this.color);
     if (index > -1) {
       // Remove the key from the stash.
       game.data.obtainedKeys.splice(index, 1);
@@ -53,9 +53,10 @@ game.PadlockEntity = me.CollectableEntity.extend({
         // Remove the padlock from the map.
         me.game.world.removeChild(this);
 
-        for (var i = 0; i < game.doors.length; i++) {
-          if (game.doors[i].doorNumber === this.doorNumber) {
-            game.doors[i].open(this.color);
+        // Open the proper door.
+        for (let door of game.doors) {
+          if (door.doorNumber === this.doorNumber) {
+            door.open(this.color);
             break;
           }
         }
@@ -69,7 +70,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
   /**
   * Collision handling.
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     return false;
   }
 });

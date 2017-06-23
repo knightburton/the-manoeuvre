@@ -6,8 +6,8 @@ game.CannonEntity = me.Entity.extend({
   /**
   * Constructor
   */
-  init : function (x, y, settings) {
-    // Set the correct block image.
+  init : function(x, y, settings) {
+    // Set the proper image.
     settings.image = "cannon";
     settings.framewidth = 32;
     settings.frameheight = 64;
@@ -15,9 +15,10 @@ game.CannonEntity = me.Entity.extend({
 
     // Call the constructor.
     this._super(me.Entity, 'init', [x, y, settings]);
+
     this.name = 'cannon';
 
-    // Fix every spring on the map.
+    // Fix the cannon on the map.
     this.body.setVelocity(0, 0);
     this.body.setMaxVelocity(0, 0);
     this.body.garavity = 0;
@@ -34,10 +35,9 @@ game.CannonEntity = me.Entity.extend({
   },
 
   /**
-  * Start a spring specific action
-  *  - play the push animation.
+  * Open FIRE!
   */
-  action : function () {
+  fire : function() {
     if (!this.renderable.isCurrentAnimation('fire')) {
       this.renderable.setCurrentAnimation('fire', 'idle');
     }
@@ -46,7 +46,7 @@ game.CannonEntity = me.Entity.extend({
   /**
   * Update the entity.
   */
-  update : function (dt) {
+  update : function(dt) {
     // apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -58,16 +58,15 @@ game.CannonEntity = me.Entity.extend({
   },
 
   /**
-  * Colision handler.
-  * (called when colliding with other objects)
+  * Collision handler.
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     switch (other.body.collisionType) {
       case me.collision.types.ENEMY_OBJECT : {
-        // If the cannonSpike is at the start position.
+        // If the cannonSpike is at the start (spawn) position.
         if (other.name === 'cannonSpike') {
           // Use the fire action.
-          this.action();
+          this.fire();
         }
       } break;
     }

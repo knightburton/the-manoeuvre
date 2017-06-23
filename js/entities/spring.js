@@ -6,7 +6,7 @@ game.SpringEntity = me.Entity.extend({
   /**
   * Constructor
   */
-  init : function (x, y, settings) {
+  init : function(x, y, settings) {
     // Set the type based on Tiled information.
     if (settings.isRegularBlock) {
       this.type = 0;
@@ -54,7 +54,7 @@ game.SpringEntity = me.Entity.extend({
   * Start a spring specific action
   * play the push animation.
   */
-  action : function () {
+  action : function() {
     if (!this.renderable.isCurrentAnimation('push')) {
       this.renderable.setCurrentAnimation('push', 'idle');
     }
@@ -63,7 +63,7 @@ game.SpringEntity = me.Entity.extend({
   /**
   * Update the entity.
   */
-  update : function (dt) {
+  update : function(dt) {
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -75,10 +75,9 @@ game.SpringEntity = me.Entity.extend({
   },
 
   /**
-  * Colision handler
-  * (called when colliding with other objects).
+  * Collision handler
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     // Make all other objects solid.
     return false;
   }

@@ -6,15 +6,17 @@ game.FloatingSpikeEntity = me.Entity.extend({
   /**
   * Constructor
   */
-  init : function (x, y, settings) {
+  init : function(x, y, settings) {
     // Call the constructor.
     this._super(me.Entity, 'init', [x, y , settings]);
+
     this.name = 'floatingSpike';
 
     // Fix every floating spike on the map.
     this.body.setVelocity(0, 0);
     this.body.setMaxVelocity(0, 0);
     this.body.garavity = 0;
+
     this.body.collisionType = me.collision.types.ENEMY_OBJECT;
 
     // Enable the update.
@@ -24,7 +26,7 @@ game.FloatingSpikeEntity = me.Entity.extend({
   /**
   * Update the entity.
   */
-  update : function (dt) {
+  update : function(dt) {
 
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
@@ -37,10 +39,9 @@ game.FloatingSpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Colision handler
-  * (called when colliding with other objects).
+  * Collision handler
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     // Make all other objects solid.
     return false;
   }

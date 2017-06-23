@@ -2,10 +2,11 @@
 * Key entitiy.
 */
 game.KeyEntity = me.CollectableEntity.extend({
+
   /**
   * Constructor
   */
-  init: function (x, y, settings) {
+  init: function(x, y, settings) {
     this.color = game.parseColor(settings.color);
     this.isHidden = settings.isHidden;
     this.chestNumber = settings.chestNumber;
@@ -60,7 +61,7 @@ game.KeyEntity = me.CollectableEntity.extend({
   /**
   * Enable the key.
   */
-  enableKey : function () {
+  enable : function() {
     this.renderable.alpha = 1;
     this.renderable.flicker(500);
     this.body.collisionType = me.collision.types.COLLECTABLE_OBJECT;
@@ -69,7 +70,7 @@ game.KeyEntity = me.CollectableEntity.extend({
   /**
   * Collision handling.
   */
-  onCollision : function (/*response*/) {
+  onCollision : function(/*response*/) {
     if (game.data.obtainedKeys.indexOf(this.color) === -1) {
       game.data.obtainedKeys.push(this.color);
 

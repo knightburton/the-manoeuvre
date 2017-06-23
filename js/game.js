@@ -1,16 +1,15 @@
 
 /* Game namespace */
-var game = {
+let game = {
 
   // An object where to store game information.
   data : {
-    // score
     currentLevel : 1,
     deathCounter: 0,
     obtainedKeys : []
   },
 
-  // An object where to store color information.
+  // Color "enum".
   colors : {
     blue : 0,
     green : 1,
@@ -48,13 +47,13 @@ var game = {
   "onload" : function () {
     // Initialize the video.
     if (!me.video.init(640, 480, {
-      wrapper : "screen",
-      scale : "auto",
-      scaleMethod: "flex-width",
-      doubleBuffering : true,
-      renderer : me.video.AUTO,
-      pixelated : true,
-      subPixel : false
+        wrapper : "screen",
+        scale : "auto",
+        scaleMethod: "flex-width",
+        doubleBuffering : true,
+        renderer : me.video.AUTO,
+        pixelated : true,
+        subPixel : false
     })) {
       alert("Your browser does not support HTML5 canvas.");
       return;
@@ -71,8 +70,6 @@ var game = {
   "loaded" : function () {
     me.state.set(me.state.MENU, new game.TitleScreen());
     me.state.set(me.state.PLAY, new game.PlayScreen());
-
-
 
     // Add our entities in the entity pool.
     me.pool.register("player", game.PlayerEntity);
@@ -92,7 +89,7 @@ var game = {
     me.game.onLevelLoaded = this.collectObjects.bind(this);
 
     // Add some global keyboard shortcuts.
-    me.event.subscribe(me.event.KEYDOWN, function (action, keyCode /*, edge */) {
+    me.event.subscribe(me.event.KEYDOWN, function (action, keyCode) {
       // Toggle fullscreen on/off.
       if (keyCode === me.input.KEY.F) {
         if (!me.device.isFullscreen) {

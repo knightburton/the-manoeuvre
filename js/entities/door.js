@@ -6,12 +6,12 @@ game.DoorEntity = me.Entity.extend({
   /**
   * Constructor.
   */
-  init : function (x, y, settings) {
+  init : function(x, y, settings) {
     this.padlocks = [];
 
-    // Parse the right color code into an array.
-    for (var i = settings.padlocks.length - 1; i >= 0; i--) {
-      this.padlocks.push(game.parseColor(settings.padlocks[i]));
+    // Parse the right color code into padlocks.
+    for (let value of settings.padlocks) {
+      this.padlocks.push(game.parseColor(value));
     }
 
     this.doorNumber = settings.doorNumber;
@@ -26,13 +26,15 @@ game.DoorEntity = me.Entity.extend({
 
     // Call the constructor.
     this._super(me.Entity, 'init', [x, y, settings]);
+
     this.name = 'door';
     this.closed = true;
+
     this.alwaysUpdate = true;
-    this.body.setVelocity(1,1);
 
     // Disable gravity.
     this.body.gravity = 0;
+    this.body.setVelocity(1, 1);
 
     // Set renderable animations.
     this.renderable.addAnimation('idle', [0]);
@@ -45,23 +47,21 @@ game.DoorEntity = me.Entity.extend({
   /**
   * Open the door.
   */
-  open : function (removedLock) {
+  open : function(removedLock) {
     // If the door is locked.
     if (this.closed) {
-      var index = this.padlocks.indexOf(removedLock);
-      if (index > -1) {
-        this.padlocks.splice(index, 1);
-      }
+      this.padlocks.splice(this.padlocks.indexOf(removedLock), 1);
+
       if (this.padlocks.length === 0) {
         // Play the opening animation.
-        this.renderable.setCurrentAnimation('open', (function () {
+        this.renderable.setCurrentAnimation('open', () => {
           this.renderable.setCurrentAnimation('opened');
           // After this, the door will be opened no matter what.
           this.closed = false;
 
           // Turn off the collision.
           this.body.setCollisionMask(me.collision.types.NO_OBJECT);
-        }).bind(this));
+        });
       }
     }
   },
@@ -81,10 +81,9 @@ game.DoorEntity = me.Entity.extend({
   },
 
   /**
-  * Colision handler
-  * (called when colliding with other objects).
+  * Collision handler
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     // Make all other objects non solid.
     return false;
   }

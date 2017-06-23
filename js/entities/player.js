@@ -6,7 +6,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Constructor
   */
-  init : function (x, y, settings) {
+  init : function(x, y, settings) {
     settings.image = "thevrjani";
     settings.framewidth = 32;
     settings.frameheight = 64;
@@ -57,33 +57,75 @@ game.PlayerEntity = me.Entity.extend({
     me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH);
 
     // Add some keyboard shortcut.
-    me.input.bindKey(me.input.KEY.LEFT,  "left");
+    me.input.bindKey(me.input.KEY.LEFT, "left");
     me.input.bindKey(me.input.KEY.RIGHT, "right");
-    me.input.bindKey(me.input.KEY.Z,     "jump", true);
-    me.input.bindKey(me.input.KEY.UP,    "jump", true);
-    me.input.bindKey(me.input.KEY.DOWN,  "down");
-    me.input.bindKey(me.input.KEY.X,     "action", true);
+    me.input.bindKey(me.input.KEY.Z, "jump", true);
+    me.input.bindKey(me.input.KEY.UP, "jump", true);
+    me.input.bindKey(me.input.KEY.DOWN, "down");
+    me.input.bindKey(me.input.KEY.X, "action", true);
 
     // Add some gamepad shortcut.
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_1}, me.input.KEY.UP);
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_2}, me.input.KEY.UP);
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.DOWN}, me.input.KEY.DOWN);
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_3}, me.input.KEY.DOWN);
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_4}, me.input.KEY.DOWN);
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.LEFT}, me.input.KEY.LEFT);
-    me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.RIGHT}, me.input.KEY.RIGHT);
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_1},
+      me.input.KEY.UP
+    );
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_2},
+      me.input.KEY.UP
+    );
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.DOWN},
+      me.input.KEY.DOWN
+    );
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_3},
+      me.input.KEY.DOWN
+    );
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_4},
+      me.input.KEY.DOWN
+    );
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.LEFT},
+      me.input.KEY.LEFT
+    );
+    me.input.bindGamepad(0,
+      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.RIGHT},
+      me.input.KEY.RIGHT
+    );
 
     // Map axes.
-    me.input.bindGamepad(0, {type:"axes", code: me.input.GAMEPAD.AXES.LX, threshold: -0.5}, me.input.KEY.LEFT);
-    me.input.bindGamepad(0, {type:"axes", code: me.input.GAMEPAD.AXES.LX, threshold: 0.5}, me.input.KEY.RIGHT);
-    me.input.bindGamepad(0, {type:"axes", code: me.input.GAMEPAD.AXES.LY, threshold: -0.5}, me.input.KEY.UP);
+    me.input.bindGamepad(0,
+      {type:"axes", code: me.input.GAMEPAD.AXES.LX, threshold: -0.5},
+      me.input.KEY.LEFT
+    );
+    me.input.bindGamepad(0,
+      {type:"axes", code: me.input.GAMEPAD.AXES.LX, threshold: 0.5},
+      me.input.KEY.RIGHT
+    );
+    me.input.bindGamepad(0,
+      {type:"axes", code: me.input.GAMEPAD.AXES.LY, threshold: -0.5},
+      me.input.KEY.UP
+    );
 
     // Set renderable and animations.
     this.renderable.addAnimation('idle', [0, 1, 2], 250);
     this.renderable.addAnimation('walk', [10, 11, 12, 13, 15, 16, 17, 18], 100);
     this.renderable.addAnimation('jump', [3]);
-    this.renderable.addAnimation('crouch', [{name: 5, delay: 2000}, {name: 6, delay: 2000}, {name: 7, delay: 250}, {name: 8, delay: 250}]);
-    this.renderable.addAnimation('die', [20, 21, 22, 23, 24, {name: 19, delay: 500}], 100);
+    this.renderable.addAnimation('crouch',
+      [
+        {name: 5, delay: 2000},
+        {name: 6, delay: 2000},
+        {name: 7, delay: 250},
+        {name: 8, delay: 250}
+      ]
+    );
+    this.renderable.addAnimation('die',
+      [
+        20, 21, 22, 23, 24,
+        {name: 19, delay: 500}
+      ], 100
+    );
 
     // Set the current animation.
     this.renderable.setCurrentAnimation('idle');
@@ -92,7 +134,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Choose between stand and crounch shapes based on crounch state.
   */
-  modifyShape : function (crouch) {
+  modifyShape : function(crouch) {
     // Remove the current shape.
     this.body.removeShapeAt(0);
     if (crouch) {
@@ -111,7 +153,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Accelerate the entity.
   */
-  speedUp : function () {
+  speedUp : function() {
     this.body.setVelocity(this.WALK_SPEED, this.ACCELERATED_VERTICAL_SPEED);
     this.accelerated = true;
   },
@@ -119,7 +161,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Deccelerate the entity.
   */
-  speedDown : function () {
+  speedDown : function() {
     if (this.accelerated) {
       this.body.setVelocity(this.WALK_SPEED, this.VERTICAL_SPEED);
       this.accelerated = false;
@@ -129,14 +171,16 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * "Move up" the entity.
   */
-  jump : function () {
+  jump : function() {
     this.body.jumping = true;
     if (this.multipleJump <= 2) {
       // Play a jump sound.
       me.audio.play("jump");
 
-      // aasy "math" for double jump.
-      this.body.vel.y -= (this.body.maxVel.y * this.multipleJump++) * me.timer.tick;
+      // Easy "math" for double jump.
+      this.body.vel.y -= (this.body.maxVel.y * this.multipleJump++)
+                         * me.timer.tick;
+
       if (!this.renderable.isCurrentAnimation('jump')) {
         this.renderable.setCurrentAnimation('jump');
       }
@@ -146,7 +190,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Kill the entity.
   */
-  die : function () {
+  die : function() {
     // Play a hurt sound.
     me.audio.play("hurt");
 
@@ -168,7 +212,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Reset the entity to the spawn position.
   */
-  reset : function () {
+  reset : function() {
     // Set the flags.
     this.dying = false;
     this.respawning = true;
@@ -192,13 +236,13 @@ game.PlayerEntity = me.Entity.extend({
   /**
   * Update the entity.
   */
-  update : function (dt) {
+  update : function(dt) {
     // If the entity is dying.
     if (this.dying) {
       if (!this.renderable.isCurrentAnimation("die")) {
-        this.renderable.setCurrentAnimation("die", (function () {
+        this.renderable.setCurrentAnimation("die", () => {
           this.reset();
-        }).bind(this));
+        });
       }
       // If the entity is respawning.
     } else if (this.respawning) {
@@ -251,7 +295,8 @@ game.PlayerEntity = me.Entity.extend({
       if (me.input.isKeyPressed('action') && this.action.enabled) {
         if ((this.action.other.name === 'padlock'
             || this.action.other.name === 'chest')
-            && Math.abs(this.action.other.pos.x - this.pos.x) <= 50) {
+            && Math.abs(this.action.other.pos.x - this.pos.x) <= 50)
+        {
           if (this.action.other.open()) {
             this.action.other = null;
           }
@@ -273,14 +318,16 @@ game.PlayerEntity = me.Entity.extend({
     me.collision.check(this);
 
     // Return true if we moved or if the renderable was updated.
-    return (this._super(me.Entity, 'update', [dt]) || this.body.vel.x !== 0 || this.body.vel.y !== 0);
+    return (this._super(me.Entity, 'update', [dt])
+            || this.body.vel.x !== 0
+            || this.body.vel.y !== 0);
   },
 
   /**
-  * Colision handler
+  * Collision handler
   * (called when colliding with other objects).
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     switch (other.body.collisionType) {
       case me.collision.types.WORLD_SHAPE: {
         // Simulate a platform effect.
@@ -289,7 +336,8 @@ game.PlayerEntity = me.Entity.extend({
             !me.input.isKeyPressed("down") &&
             // Shortest overlap would move the player upward.
             (response.overlapV.y > 0) &&
-            // The velocity is reasonably fast enough to have penetrated to the overlap depth.
+            // The velocity is reasonably fast enough
+            // to have penetrated to the overlap depth.
             (~~this.body.vel.y >= ~~response.overlapV.y)
           ) {
             // Disable collision on the x axis.
@@ -304,10 +352,11 @@ game.PlayerEntity = me.Entity.extend({
       } break;
       case me.collision.types.ENEMY_OBJECT: {
         // It is gonne be 'ouch'.
-        if (other.name === 'spike' ||
-        other.name === 'floatingSpike' ||
-        other.name === 'cannonSpike' ||
-        other.name === 'rotarySpike') {
+        if (other.name === 'spike'
+            || other.name === 'floatingSpike'
+            || other.name === 'cannonSpike'
+            || other.name === 'rotarySpike')
+        {
           this.die();
         }
       } break;

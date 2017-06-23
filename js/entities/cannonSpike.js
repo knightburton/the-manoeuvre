@@ -6,12 +6,12 @@ game.CannonSpikeEntity = me.Entity.extend({
   /**
   * Constructor
   */
-  init : function (x, y, settings) {
-    // Store the are size defined in Tiled.
-    var width = settings.width;
-    var height = settings.height;
+  init : function(x, y, settings) {
+    // Store the area size which is defined in Tiled.
+    let width = settings.width;
+    let height = settings.height;
 
-    // Store the slow mode.
+    // Store the slow mode option.
     this.slowMode = settings.slowMode;
 
     // Load the tileset image.
@@ -22,12 +22,16 @@ game.CannonSpikeEntity = me.Entity.extend({
     settings.frameheight = settings.height = 32;
     settings.anchorPoint = new me.Vector2d(0.5, 0.5);
 
-    // Redefine the shapes
-    settings.shapes = [new me.Rect(0, 0, settings.framewidth, settings.frameheight)];
+    // Redefine the shape.
+    settings.shapes = [
+      new me.Rect(0, 0, settings.framewidth, settings.frameheight)
+    ];
 
     // Call the parent constructor.
     this._super(me.Entity, 'init', [x, y , settings]);
+
     this.name = 'cannonSpike';
+
     this.body.collisionType = me.collision.types.ENEMY_OBJECT;
 
     // Set the entity's velocity based on the slowMode option.
@@ -44,13 +48,13 @@ game.CannonSpikeEntity = me.Entity.extend({
     this.startY = y + height - settings.frameheight;
     this.endY = y;
 
-    // Set the position.
+    // Set the vertical position.
     this.pos.y = this.startY;
 
     // ALWAYS update.
     this.alwaysUpdate = true;
 
-
+    // Add an invisible and a moving animation.
     this.renderable.addAnimation('invisible', [164]);
     this.renderable.addAnimation('move', [132, 148], 150);
 
@@ -60,7 +64,7 @@ game.CannonSpikeEntity = me.Entity.extend({
   /**
   * Update the entity.
   */
-  update : function (dt) {
+  update : function(dt) {
     // If the spike at the end of the line.
     if (this.pos.y <= this.endY) {
       // Go back to the start position.
@@ -78,10 +82,9 @@ game.CannonSpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Colision handler
-  * (called when colliding with other objects).
+  * Collision handler
   */
-  onCollision : function (response, other) {
+  onCollision : function(response, other) {
     // Make all other objects solid.
     return false;
   }
