@@ -4,14 +4,14 @@ game.PlayScreen = me.ScreenObject.extend({
   */
   onResetEvent: function() {
     // Play audio track.
-    me.audio.playTrack("arpanauts");
+    //me.audio.playTrack("arpanauts");
 
     // Load the first level.
     me.levelDirector.loadLevel("level-one");
 
     // Reset the score.
     game.data.score = 0;
-    
+
     // Add our HUD to the game world.
     this.HUD = new game.HUD.Container();
     me.game.world.addChild(this.HUD);
@@ -25,6 +25,6 @@ game.PlayScreen = me.ScreenObject.extend({
     me.game.world.removeChild(this.HUD);
 
     // Stop the current audio track.
-    me.audio.stopTrack();
+    //me.audio.stopTrack();
   }
 });

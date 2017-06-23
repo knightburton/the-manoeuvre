@@ -7,6 +7,9 @@ game.PadlockEntity = me.CollectableEntity.extend({
   */
   init: function (x, y, settings) {
     this.color = game.parseColor(settings.color);
+    this.doorNumber = settings.doorNumber;
+
+    this.name = "padlock";
 
     settings.image = "padlocks";
     settings.framewidth = 32;
@@ -17,7 +20,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
 
     // Call the super constructor.
     this._super(me.CollectableEntity, "init", [x, y , settings]);
-    this.body.collisionType = me.collision.types.COLLECTABLE_OBJECT;
+    this.body.collisionType = me.collision.types.ACTION_OBJECT;
 
     // Calculate the correct frame line.
     this.numberOfFrames = 6;
@@ -38,26 +41,35 @@ game.PadlockEntity = me.CollectableEntity.extend({
   },
 
   /**
+  * Open the padlock and remove from the world.
+  */
+  open: function() {
+    var index = game.data.obtainedKeys.indexOf(this.color);
+    if (index > -1) {
+      // Remove the key from the stash.
+      game.data.obtainedKeys.splice(index, 1);
+
+      this.renderable.flicker(300, () => {
+        // Remove the padlock from the map.
+        me.game.world.removeChild(this);
+
+        for (var i = 0; i < game.doors.length; i++) {
+          if (game.doors[i].doorNumber === this.doorNumber) {
+            game.doors[i].open(this.color);
+            break;
+          }
+        }
+      });
+      return true;
+    }
+
+    return false;
+  },
+
+  /**
   * Collision handling.
   */
   onCollision : function (response, other) {
-    switch (other.body.collisionType) {
-      case me.collision.types.PLAYER_OBJECT: {
-        for (var i = game.data.obtainedKeys.length - 1; i >= 0; i--) {
-          if (game.data.obtainedKeys[i] === this.color) {
-
-            // Avoid further collision.
-            this.body.setCollisionMask(me.collision.types.NO_OBJECT);
-
-            this.renderable.flicker(400, (function () {
-              // Remove the padlock from the map.
-              me.game.world.removeChild(this);
-            }).bind(this));
-          }
-        }
-      } break;
-    }
-
     return false;
   }
 });

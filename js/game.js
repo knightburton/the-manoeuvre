@@ -37,10 +37,11 @@ var game = {
   },
 
   /**
-  * Collect every key in the world.
+  * Collect every key and door in the world for further global use.
   */
-  collectKeys : function () {
+  collectObjects : function () {
     game.keys = me.game.world.getChildByProp('name', 'key');
+    game.doors = me.game.world.getChildByProp('name', 'door');
   },
 
   // Run on page load.
@@ -87,8 +88,8 @@ var game = {
     me.pool.register("rotarySpike", game.RotarySpikeEntity);
     me.pool.register("rotaryChain", game.RotaryChainEntity);
 
-    // Run the key collector.
-    me.game.onLevelLoaded = this.collectKeys.bind(this);
+    // Run the object collector.
+    me.game.onLevelLoaded = this.collectObjects.bind(this);
 
     // Add some global keyboard shortcuts.
     me.event.subscribe(me.event.KEYDOWN, function (action, keyCode /*, edge */) {

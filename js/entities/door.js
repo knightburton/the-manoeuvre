@@ -7,12 +7,14 @@ game.DoorEntity = me.Entity.extend({
   * Constructor.
   */
   init : function (x, y, settings) {
-    this.requiredKeys = [];
+    this.padlocks = [];
 
     // Parse the right color code into an array.
-    for (var i = settings.requiredKeys.length - 1; i >= 0; i--) {
-      this.requiredKeys.push(game.parseColor(settings.requiredKeys[i]));
+    for (var i = settings.padlocks.length - 1; i >= 0; i--) {
+      this.padlocks.push(game.parseColor(settings.padlocks[i]));
     }
+
+    this.doorNumber = settings.doorNumber;
 
     settings.image = 'door';
     settings.framewidth = 64;
@@ -43,34 +45,23 @@ game.DoorEntity = me.Entity.extend({
   /**
   * Open the door.
   */
-  open : function () {
+  open : function (removedLock) {
     // If the door is locked.
     if (this.closed) {
-      var numberOfRemainingKeys = this.requiredKeys.length;
-      for (var i = this.requiredKeys.length - 1; i >= 0; i--) {
-        for (var j = game.data.obtainedKeys.length - 1; j >= 0; j--) {
-          if (game.data.obtainedKeys[j] == this.requiredKeys[i]) {
-            numberOfRemainingKeys--;
-          }
-        }
+      var index = this.padlocks.indexOf(removedLock);
+      if (index > -1) {
+        this.padlocks.splice(index, 1);
       }
-
-      if (numberOfRemainingKeys === 0) {
-        // Turn off the collision.
-        this.body.setCollisionMask(me.collision.types.NO_OBJECT);
-
+      if (this.padlocks.length === 0) {
         // Play the opening animation.
         this.renderable.setCurrentAnimation('open', (function () {
           this.renderable.setCurrentAnimation('opened');
-          // After this, the door will be opened no matter what
+          // After this, the door will be opened no matter what.
           this.closed = false;
 
-          //Remove every key from the player.
-          game.data.obtainedKeys = [];
+          // Turn off the collision.
+          this.body.setCollisionMask(me.collision.types.NO_OBJECT);
         }).bind(this));
-
-      } else {
-        //TODO: Implement a basic HUD to display some message.
       }
     }
   },
@@ -94,14 +85,6 @@ game.DoorEntity = me.Entity.extend({
   * (called when colliding with other objects).
   */
   onCollision : function (response, other) {
-    switch (other.body.collisionType) {
-      // If the plaer at the door.
-      case me.collision.types.PLAYER_OBJECT: {
-        // Use the open action.
-        this.open();
-      } break;
-    }
-
     // Make all other objects non solid.
     return false;
   }

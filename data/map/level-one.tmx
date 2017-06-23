@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="left-down" width="120" height="20" tilewidth="32" tileheight="32" nextobjectid="676">
+<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="left-down" width="120" height="20" tilewidth="32" tileheight="32" nextobjectid="679">
  <tileset firstgid="1" source="tileset.tsx"/>
  <imagelayer name="Parallax" offsetx="0" offsety="-1">
   <image source="../img/map/level-one-background.png" width="1024" height="512"/>
@@ -42,7 +42,7 @@
   <object id="489" name="door" x="928" y="544" width="64" height="64">
    <properties>
     <property name="doorNumber" type="int" value="0"/>
-    <property name="requiredKeys" value="eval:[&quot;yellow&quot;]"/>
+    <property name="padlocks" value="eval:[&quot;yellow&quot;]"/>
    </properties>
   </object>
   <object id="491" name="spring" x="544" y="576" width="32" height="32">
@@ -62,13 +62,13 @@
   <object id="479" name="door" x="1920" y="512" width="64" height="64">
    <properties>
     <property name="doorNumber" type="int" value="1"/>
-    <property name="requiredKeys" value="eval:['green', 'blue']"/>
+    <property name="padlocks" value="eval:[&quot;green&quot;,&quot;blue&quot;]"/>
    </properties>
   </object>
   <object id="481" name="door" x="2912" y="32" width="64" height="64">
    <properties>
     <property name="doorNumber" type="int" value="2"/>
-    <property name="requiredKeys" value="eval:['red', 'green']"/>
+    <property name="padlocks" value="eval:[&quot;red&quot;,&quot;green&quot;]"/>
    </properties>
   </object>
   <object id="586" name="chest" x="1248" y="64" width="32" height="32">
@@ -103,16 +103,19 @@
   <object id="508" name="padlock" x="928" y="576" width="32" height="32">
    <properties>
     <property name="color" value="yellow"/>
+    <property name="doorNumber" type="int" value="0"/>
    </properties>
   </object>
   <object id="563" name="padlock" x="1920" y="544" width="32" height="32">
    <properties>
     <property name="color" value="blue"/>
+    <property name="doorNumber" type="int" value="1"/>
    </properties>
   </object>
   <object id="564" name="padlock" x="1920" y="512" width="32" height="32">
    <properties>
     <property name="color" value="green"/>
+    <property name="doorNumber" type="int" value="1"/>
    </properties>
   </object>
   <object id="565" name="key" x="2016" y="32" width="32" height="32">
@@ -160,11 +163,13 @@
   <object id="641" name="padlock" x="2912" y="32" width="32" height="32">
    <properties>
     <property name="color" value="green"/>
+    <property name="doorNumber" type="int" value="2"/>
    </properties>
   </object>
   <object id="642" name="padlock" x="2912" y="64" width="32" height="32">
    <properties>
     <property name="color" value="red"/>
+    <property name="doorNumber" type="int" value="2"/>
    </properties>
   </object>
   <object id="655" name="key" x="1632" y="192" width="32" height="32">

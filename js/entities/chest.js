@@ -44,33 +44,30 @@ game.ChestEntity = me.Entity.extend({
   },
 
   /**
-  * Open the chest.
+  * Open the chest and show the treasure in it.
   */
   open : function () {
-    var ok = false;
     // If the chest is locked.
     if (this.closed) {
-      for (var i = game.data.obtainedKeys.length - 1; i >= 0; i--) {
-        // If the player has the correct key.
-        if (game.data.obtainedKeys[i] == this.color) {
+      var index = game.data.obtainedKeys.indexOf(this.color);
+      if (index > -1) {
+        // Remove the key from the global obtained key stash.
+        game.data.obtainedKeys.splice(index, 1);
 
-          // Remove the key.
-          game.data.obtainedKeys.splice(i, 1);
-          ok = true;
-          break;
-        }
-      }
-
-      if (ok) {
-        // Open the door.
+        // Open the chest.
         if (!this.renderable.isCurrentAnimation('opened')) {
           this.renderable.setCurrentAnimation('opened');
         }
         this.closed = false;
+
+        // Enable, show the inner key.
+        game.keys.filter(key => key.chestNumber === this.chestId)[0].enableKey();
+
+        me.timer.setTimeout(() => {
+          this.body.collisionType = me.collision.types.NO_OBJECT;
+        }, 500);
+
         return true;
-      } else {
-        //TODO: HUD needed.
-        return false;
       }
     }
 
@@ -97,26 +94,6 @@ game.ChestEntity = me.Entity.extend({
   * (called when colliding with other objects).
   */
   onCollision : function (response, other) {
-    switch (other.body.collisionType) {
-      case me.collision.types.PLAYER_OBJECT : {
-        if (this.open()) {
-          for (var i = game.keys.length - 1; i >= 0; i--) {
-
-            // Enable the correct key, based on the chest Number.
-            if (game.keys[i].chestNumber == this.chestId) {
-              game.keys[i].enableKey();
-
-              // Disable the colliison on this after 500ms.
-              me.timer.setTimeout((function () {
-                this.body.collisionType = me.collision.types.NO_OBJECT;
-              }).bind(this), 500);
-
-              break;
-            }
-          }
-        }
-      } break;
-    }
     // Make all other objects solid.
     return false;
   }

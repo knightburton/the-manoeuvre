@@ -18,6 +18,11 @@ game.PlayerEntity = me.Entity.extend({
     // Reduce the entity's "hitbox".
     settings.shapes = [this.normalShape];
 
+    this.action = {
+      enabled: false,
+      other: null
+    };
+
     // Call the constructor.
     this._super(me.Entity, 'init', [x, y , settings]);
     this.name = "player";
@@ -54,9 +59,10 @@ game.PlayerEntity = me.Entity.extend({
     // Add some keyboard shortcut.
     me.input.bindKey(me.input.KEY.LEFT,  "left");
     me.input.bindKey(me.input.KEY.RIGHT, "right");
-    me.input.bindKey(me.input.KEY.X,     "jump", true);
+    me.input.bindKey(me.input.KEY.Z,     "jump", true);
     me.input.bindKey(me.input.KEY.UP,    "jump", true);
     me.input.bindKey(me.input.KEY.DOWN,  "down");
+    me.input.bindKey(me.input.KEY.X,     "action", true);
 
     // Add some gamepad shortcut.
     me.input.bindGamepad(0, {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_1}, me.input.KEY.UP);
@@ -200,6 +206,7 @@ game.PlayerEntity = me.Entity.extend({
         this.respawning = false;
     } else {
       // If the user press a key.
+
       if (me.input.isKeyPressed('jump')) {
         this.jump();
       } else if (!this.body.falling && !this.body.jumping) {
@@ -239,9 +246,21 @@ game.PlayerEntity = me.Entity.extend({
           this.renderable.setCurrentAnimation("idle");
         }
       }
+
+      // Allow to use the action button while moving.
+      if (me.input.isKeyPressed('action') && this.action.enabled) {
+        if ((this.action.other.name === 'padlock'
+            || this.action.other.name === 'chest')
+            && Math.abs(this.action.other.pos.x - this.pos.x) <= 50) {
+          if (this.action.other.open()) {
+            this.action.other = null;
+          }
+          this.action.enabled = false;
+        }
+      }
     }
 
-    // If the down key was released and tha shape was modified
+    // If the down key was released and thaeshape was modified
     // go back to the normal shape.
     if (this.isShapeModified && !me.input.keyStatus('down')) {
       this.modifyShape(false);
@@ -305,6 +324,9 @@ game.PlayerEntity = me.Entity.extend({
             // Play the spring animation.
             other.action();
           }
+        } else if (other.name === 'padlock' || other.name === 'chest') {
+          this.action.enabled = true;
+          this.action.other = other;
         }
       } break;
       default:
