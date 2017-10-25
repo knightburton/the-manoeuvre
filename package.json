@@ -1,6 +1,11 @@
 {
-  "name": "boilerplate",
-  "version": "2.1.3",
+  "name": "the-manoeuvre",
+  "version": "0.0.6",
+  "license": "Apache-2.0",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/knightburton/themanoeuvre"
+  },
   "main": "main.js",
   "devDependencies": {
     "grunt": "^1.0.1",

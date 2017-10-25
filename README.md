@@ -1,15 +1,17 @@
-Platformer fan art game
+#The manoeuVRe
 -------------------------------------------------------------------------------
+A platformer fan art game...
 
 features :
 - double jump
 - ...in progress
 
-## How to To run
+
+## To run distribution
 
 To build, be sure you have [node](http://nodejs.org) installed. Clone the project:
 
-    git clone https://github.com/knightburton/Platformer.git
+    git clone https://github.com/melonjs/boilerplate.git
 
 Then in the cloned directory, simply run:
 
@@ -23,7 +25,7 @@ Running the game:
 
 	grunt serve
 
-And you will have the game running on http://localhost:8000
+And you will have the boilerplate example running on http://localhost:8000
 
 ## Building Release Versions
 
@@ -33,7 +35,9 @@ To build:
 
 This will create a `build` directory containing the files that can be uploaded to a server, or packaged into a mobile app.
 
-## Building a standalone desktop release
+----
+
+Building a standalone desktop release:
 
     grunt dist
 
@@ -50,7 +54,3 @@ Running the desktop release on Linux:
     ./bin/electron
 
 Note that you may have to edit the file `Gruntfile.js` if you need to better dictate the order your files load in. Note how by default the game.js and resources.js are specified in a specific order.
-
--------------------------------------------------------------------------------
-Copyright (C) 2016 - Imre Kiss - knightburton
-melonJS and Platformer are licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
