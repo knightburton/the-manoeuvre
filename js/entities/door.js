@@ -1,17 +1,19 @@
 /**
-* Door Entity.
-*/
+ * Door Entity.
+ */
 game.DoorEntity = me.Entity.extend({
 
   /**
-  * Constructor.
-  */
-  init : function(x, y, settings) {
+   * Constructor.
+   */
+  init(x, y, settings) {
     this.padlocks = [];
 
     // Parse the right color code into padlocks.
-    for (let value of settings.padlocks) {
-      this.padlocks.push(game.parseColor(value));
+    for (const key in settings.padlocks) {
+      if (settings.padlocks.hasOwnProperty(key)) {
+        this.padlocks.push(game.parseColor(settings.padlocks[key]));
+      }
     }
 
     this.doorNumber = settings.doorNumber;
@@ -45,9 +47,9 @@ game.DoorEntity = me.Entity.extend({
   },
 
   /**
-  * Open the door.
-  */
-  open : function(removedLock) {
+   * Open the door.
+   */
+  open(removedLock) {
     // If the door is locked.
     if (this.closed) {
       this.padlocks.splice(this.padlocks.indexOf(removedLock), 1);
@@ -67,9 +69,9 @@ game.DoorEntity = me.Entity.extend({
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
+   * Update the entity.
+   */
+  update(dt) {
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -81,10 +83,10 @@ game.DoorEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   */
+  onCollision() {
     // Make all other objects non solid.
     return false;
-  }
+  },
 });

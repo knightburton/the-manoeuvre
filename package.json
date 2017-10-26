@@ -3,11 +3,19 @@
   "version": "0.0.6",
   "license": "Apache-2.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/knightburton/themanoeuvre"
+    "type": "git",
+    "url": "https://github.com/knightburton/themanoeuvre"
   },
   "main": "main.js",
+  "dependencies": {
+    "electron": "^1.7.9"
+  },
   "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "grunt": "^1.0.1",
     "grunt-asar": "bwin/grunt-asar#update-asar",
     "grunt-contrib-clean": "^1.0.0",

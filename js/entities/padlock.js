@@ -1,17 +1,17 @@
 /**
-* Padlock entitiy.
-*/
+ * Padlock entitiy.
+ */
 game.PadlockEntity = me.CollectableEntity.extend({
   /**
-  * Constructor
-  */
-  init: function(x, y, settings) {
+   * Constructor
+   */
+  init(x, y, settings) {
     this.color = game.parseColor(settings.color);
     this.doorNumber = settings.doorNumber;
 
-    this.name = "padlock";
+    this.name = 'padlock';
 
-    settings.image = "padlocks";
+    settings.image = 'padlocks';
     settings.framewidth = 32;
     settings.frameheight = 32;
     // Set the renderable position to center.
@@ -19,7 +19,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
     settings.shapes = [new me.Rect(6, 4, 20, 24)];
 
     // Call the super constructor.
-    this._super(me.CollectableEntity, "init", [x, y , settings]);
+    this._super(me.CollectableEntity, 'init', [x, y, settings]);
     this.body.collisionType = me.collision.types.ACTION_OBJECT;
 
     // Calculate the correct frame line.
@@ -41,10 +41,10 @@ game.PadlockEntity = me.CollectableEntity.extend({
   },
 
   /**
-  * Open the padlock and remove from the world.
-  */
-  open: function() {
-    let index = game.data.obtainedKeys.indexOf(this.color);
+   * Open the padlock and remove from the world.
+   */
+  open() {
+    const index = game.data.obtainedKeys.indexOf(this.color);
     if (index > -1) {
       // Remove the key from the stash.
       game.data.obtainedKeys.splice(index, 1);
@@ -54,7 +54,7 @@ game.PadlockEntity = me.CollectableEntity.extend({
         me.game.world.removeChild(this);
 
         // Open the proper door.
-        for (let door of game.doors) {
+        for (const door of game.doors) {
           if (door.doorNumber === this.doorNumber) {
             door.open(this.color);
             break;
@@ -68,9 +68,9 @@ game.PadlockEntity = me.CollectableEntity.extend({
   },
 
   /**
-  * Collision handling.
-  */
-  onCollision : function(response, other) {
+   * Collision handling.
+   */
+  onCollision(response, other) {
     return false;
-  }
+  },
 });

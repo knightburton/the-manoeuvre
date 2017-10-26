@@ -1,14 +1,14 @@
 /**
-* Spike Entity.
-*/
+ * Spike Entity.
+ */
 game.FloatingSpikeEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
+   * Constructor
+   */
+  init(x, y, settings) {
     // Call the constructor.
-    this._super(me.Entity, 'init', [x, y , settings]);
+    this._super(me.Entity, 'init', [x, y, settings]);
 
     this.name = 'floatingSpike';
 
@@ -24,10 +24,9 @@ game.FloatingSpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
-
+   * Update the entity.
+   */
+  update(dt) {
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -39,10 +38,10 @@ game.FloatingSpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   */
+  onCollision() {
     // Make all other objects solid.
     return false;
-  }
+  },
 });

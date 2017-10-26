@@ -1,13 +1,13 @@
 /**
-* Player Entity.
-*/
+ * Player Entity.
+ */
 game.PlayerEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
-    settings.image = "thevrjani";
+   * Constructor
+   */
+  init(x, y, settings) {
+    settings.image = 'thevrjani';
     settings.framewidth = 32;
     settings.frameheight = 64;
 
@@ -20,12 +20,12 @@ game.PlayerEntity = me.Entity.extend({
 
     this.action = {
       enabled: false,
-      other: null
+      other: null,
     };
 
     // Call the constructor.
-    this._super(me.Entity, 'init', [x, y , settings]);
-    this.name = "player";
+    this._super(me.Entity, 'init', [x, y, settings]);
+    this.name = 'player';
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
 
     // Store some information about spawn.
@@ -57,54 +57,64 @@ game.PlayerEntity = me.Entity.extend({
     me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH);
 
     // Add some keyboard shortcut.
-    me.input.bindKey(me.input.KEY.LEFT, "left");
-    me.input.bindKey(me.input.KEY.RIGHT, "right");
-    me.input.bindKey(me.input.KEY.Z, "jump", true);
-    me.input.bindKey(me.input.KEY.UP, "jump", true);
-    me.input.bindKey(me.input.KEY.DOWN, "down");
-    me.input.bindKey(me.input.KEY.X, "action", true);
+    me.input.bindKey(me.input.KEY.LEFT, 'left');
+    me.input.bindKey(me.input.KEY.RIGHT, 'right');
+    me.input.bindKey(me.input.KEY.Z, 'jump', true);
+    me.input.bindKey(me.input.KEY.UP, 'jump', true);
+    me.input.bindKey(me.input.KEY.DOWN, 'down');
+    me.input.bindKey(me.input.KEY.X, 'action', true);
 
     // Add some gamepad shortcut.
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_1},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.FACE_1 },
       me.input.KEY.UP
     );
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_2},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.FACE_2 },
       me.input.KEY.UP
     );
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.DOWN},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.DOWN },
       me.input.KEY.DOWN
     );
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_3},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.FACE_3 },
       me.input.KEY.DOWN
     );
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.FACE_4},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.FACE_4 },
       me.input.KEY.DOWN
     );
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.LEFT},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.LEFT },
       me.input.KEY.LEFT
     );
-    me.input.bindGamepad(0,
-      {type: "buttons", code: me.input.GAMEPAD.BUTTONS.RIGHT},
+    me.input.bindGamepad(
+      0,
+      { type: 'buttons', code: me.input.GAMEPAD.BUTTONS.RIGHT },
       me.input.KEY.RIGHT
     );
 
     // Map axes.
-    me.input.bindGamepad(0,
-      {type:"axes", code: me.input.GAMEPAD.AXES.LX, threshold: -0.5},
+    me.input.bindGamepad(
+      0,
+      { type: 'axes', code: me.input.GAMEPAD.AXES.LX, threshold: -0.5 },
       me.input.KEY.LEFT
     );
-    me.input.bindGamepad(0,
-      {type:"axes", code: me.input.GAMEPAD.AXES.LX, threshold: 0.5},
+    me.input.bindGamepad(
+      0,
+      { type: 'axes', code: me.input.GAMEPAD.AXES.LX, threshold: 0.5 },
       me.input.KEY.RIGHT
     );
-    me.input.bindGamepad(0,
-      {type:"axes", code: me.input.GAMEPAD.AXES.LY, threshold: -0.5},
+    me.input.bindGamepad(
+      0,
+      { type: 'axes', code: me.input.GAMEPAD.AXES.LY, threshold: -0.5 },
       me.input.KEY.UP
     );
 
@@ -112,29 +122,22 @@ game.PlayerEntity = me.Entity.extend({
     this.renderable.addAnimation('idle', [0, 1, 2], 250);
     this.renderable.addAnimation('walk', [10, 11, 12, 13, 15, 16, 17, 18], 100);
     this.renderable.addAnimation('jump', [3]);
-    this.renderable.addAnimation('crouch',
-      [
-        {name: 5, delay: 2000},
-        {name: 6, delay: 2000},
-        {name: 7, delay: 250},
-        {name: 8, delay: 250}
-      ]
-    );
-    this.renderable.addAnimation('die',
-      [
-        20, 21, 22, 23, 24,
-        {name: 19, delay: 500}
-      ], 100
-    );
+    this.renderable.addAnimation('crouch', [
+      { name: 5, delay: 2000 },
+      { name: 6, delay: 2000 },
+      { name: 7, delay: 250 },
+      { name: 8, delay: 250 },
+    ]);
+    this.renderable.addAnimation('die', [20, 21, 22, 23, 24, { name: 19, delay: 500 }], 100);
 
     // Set the current animation.
     this.renderable.setCurrentAnimation('idle');
   },
 
   /**
-  * Choose between stand and crounch shapes based on crounch state.
-  */
-  modifyShape : function(crouch) {
+   * Choose between stand and crounch shapes based on crounch state.
+   */
+  modifyShape(crouch) {
     // Remove the current shape.
     this.body.removeShapeAt(0);
     if (crouch) {
@@ -151,17 +154,17 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-  * Accelerate the entity.
-  */
-  speedUp : function() {
+   * Accelerate the entity.
+   */
+  speedUp() {
     this.body.setVelocity(this.WALK_SPEED, this.ACCELERATED_VERTICAL_SPEED);
     this.accelerated = true;
   },
 
   /**
-  * Deccelerate the entity.
-  */
-  speedDown : function() {
+   * Deccelerate the entity.
+   */
+  speedDown() {
     if (this.accelerated) {
       this.body.setVelocity(this.WALK_SPEED, this.VERTICAL_SPEED);
       this.accelerated = false;
@@ -169,13 +172,13 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-  * "Move up" the entity.
-  */
-  jump : function() {
+   * "Move up" the entity.
+   */
+  jump() {
     this.body.jumping = true;
     if (this.multipleJump <= 2) {
       // Play a jump sound.
-      me.audio.play("jump");
+      me.audio.play('jump');
 
       // Easy "math" for double jump.
       this.body.vel.y -= (this.body.maxVel.y * this.multipleJump++)
@@ -188,11 +191,11 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-  * Kill the entity.
-  */
-  die : function() {
+   * Kill the entity.
+   */
+  die() {
     // Play a hurt sound.
-    me.audio.play("hurt");
+    me.audio.play('hurt');
 
     // Increase the dc.
     game.data.deathCounter++;
@@ -210,9 +213,9 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-  * Reset the entity to the spawn position.
-  */
-  reset : function() {
+   * Reset the entity to the spawn position.
+   */
+  reset() {
     // Set the flags.
     this.dying = false;
     this.respawning = true;
@@ -234,20 +237,20 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
+   * Update the entity.
+   */
+  update(dt) {
     // If the entity is dying.
     if (this.dying) {
-      if (!this.renderable.isCurrentAnimation("die")) {
-        this.renderable.setCurrentAnimation("die", () => {
+      if (!this.renderable.isCurrentAnimation('die')) {
+        this.renderable.setCurrentAnimation('die', () => {
           this.reset();
         });
       }
       // If the entity is respawning.
     } else if (this.respawning) {
-        this.renderable.setCurrentAnimation('idle');
-        this.respawning = false;
+      this.renderable.setCurrentAnimation('idle');
+      this.respawning = false;
     } else {
       // If the user press a key.
 
@@ -286,8 +289,8 @@ game.PlayerEntity = me.Entity.extend({
           }
         }
       } else if (this.body.vel.x === 0 && this.body.vel.y === 0) {
-        if (!this.renderable.isCurrentAnimation("idle")) {
-          this.renderable.setCurrentAnimation("idle");
+        if (!this.renderable.isCurrentAnimation('idle')) {
+          this.renderable.setCurrentAnimation('idle');
         }
       }
 
@@ -295,8 +298,7 @@ game.PlayerEntity = me.Entity.extend({
       if (me.input.isKeyPressed('action') && this.action.enabled) {
         if ((this.action.other.name === 'padlock'
             || this.action.other.name === 'chest')
-            && Math.abs(this.action.other.pos.x - this.pos.x) <= 50)
-        {
+            && Math.abs(this.action.other.pos.x - this.pos.x) <= 50) {
           if (this.action.other.open()) {
             this.action.other = null;
           }
@@ -305,8 +307,7 @@ game.PlayerEntity = me.Entity.extend({
       }
     }
 
-    // If the down key was released and thaeshape was modified
-    // go back to the normal shape.
+    // If the down key was released and thaeshape was modified go back to the normal shape.
     if (this.isShapeModified && !me.input.keyStatus('down')) {
       this.modifyShape(false);
     }
@@ -324,20 +325,19 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  * (called when colliding with other objects).
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   * (called when colliding with other objects).
+   */
+  onCollision(response, other) {
     switch (other.body.collisionType) {
-      case me.collision.types.WORLD_SHAPE: {
+      case me.collision.types.WORLD_SHAPE:
         // Simulate a platform effect.
-        if (other.type === "platform") {
+        if (other.type === 'platform') {
           if (this.body.falling &&
-            !me.input.isKeyPressed("down") &&
+            !me.input.isKeyPressed('down') &&
             // Shortest overlap would move the player upward.
             (response.overlapV.y > 0) &&
-            // The velocity is reasonably fast enough
-            // to have penetrated to the overlap depth.
+            // The velocity is reasonably fast enough to have penetrated to the overlap depth.
             (~~this.body.vel.y >= ~~response.overlapV.y)
           ) {
             // Disable collision on the x axis.
@@ -349,18 +349,17 @@ game.PlayerEntity = me.Entity.extend({
           // Do not respond to the platform (pass through).
           return false;
         }
-      } break;
-      case me.collision.types.ENEMY_OBJECT: {
+        break;
+      case me.collision.types.ENEMY_OBJECT:
         // It is gonne be 'ouch'.
         if (other.name === 'spike'
             || other.name === 'floatingSpike'
             || other.name === 'cannonSpike'
-            || other.name === 'rotarySpike')
-        {
+            || other.name === 'rotarySpike') {
           this.die();
         }
-      } break;
-      case me.collision.types.ACTION_OBJECT : {
+        break;
+      case me.collision.types.ACTION_OBJECT:
         // If the entity jumped onto a spring.
         if (other.name === 'spring') {
           if ((response.overlapV.y > 0) && this.body.falling) {
@@ -377,13 +376,13 @@ game.PlayerEntity = me.Entity.extend({
           this.action.enabled = true;
           this.action.other = other;
         }
-      } break;
+        break;
       default:
-      // Do not respond to other objects (e.g. coins).
-      return false;
+        // Do not respond to other objects (e.g. coins).
+        return false;
     }
 
     // Make all other objects solid.
     return true;
-  }
+  },
 });

@@ -5,7 +5,7 @@ game.HUD = game.HUD || {};
 
 game.HUD.Container = me.Container.extend({
 
-  init: function() {
+  init() {
     // Call the constructor.
     this._super(me.Container, 'init');
 
@@ -16,12 +16,12 @@ game.HUD.Container = me.Container.extend({
     this.floating = true;
 
     // Give a name.
-    this.name = "HUD";
+    this.name = 'HUD';
 
     // Add our child score object at the top left corner.
     this.addChild(new game.HUD.DeathItem(5, 5));
     this.addChild(new game.HUD.KeyItem(5, 5));
-  }
+  },
 });
 
 
@@ -32,8 +32,7 @@ game.HUD.DeathItem = me.Renderable.extend({
   /**
   * Constructor
   */
-  init: function(x, y) {
-
+  init(x, y) {
     // Call the parent constructor
     // (size does not matter here).
     this._super(me.Renderable, 'init', [x, y, 5, 5]);
@@ -42,7 +41,7 @@ game.HUD.DeathItem = me.Renderable.extend({
     this.font = new me.BitmapFont(
       me.loader.getBinary('PressStart2P'),
       me.loader.getImage('PressStart2P'),
-      1, "left", "bottom"
+      1, 'left', 'bottom'
     );
 
     // Local copy of the global score.
@@ -52,7 +51,7 @@ game.HUD.DeathItem = me.Renderable.extend({
   /**
   * Update function.
   */
-  update : function() {
+  update() {
     // We don't do anything fancy here, so just
     // return true if the score has been updated.
     if (this.dc !== game.data.deathCounter) {
@@ -65,12 +64,14 @@ game.HUD.DeathItem = me.Renderable.extend({
   /**
   * Draw the score.
   */
-  draw : function(context) {
+  draw(context) {
     // This.pos.x, this.pos.y are the relative position
     // from the screen right bottom.
-    this.font.draw(context, "Deaths: " + this.dc, this.pos.x,
-                   me.game.viewport.height + this.pos.y - 10);
-  }
+    this.font.draw(
+      context, `Deaths: ${  this.dc}`, this.pos.x,
+      me.game.viewport.height + this.pos.y - 10,
+    );
+  },
 
 });
 
@@ -81,8 +82,7 @@ game.HUD.KeyItem = me.Renderable.extend({
   /**
   * Constructor
   */
-  init: function(x, y) {
-
+  init(x, y) {
     // Call the parent constructor
     // (size does not matter here).
     this._super(me.Renderable, 'init', [x, y, 5, 5]);
@@ -91,16 +91,16 @@ game.HUD.KeyItem = me.Renderable.extend({
     this.font = new me.BitmapFont(
       me.loader.getBinary('PressStart2P'),
       me.loader.getImage('PressStart2P'),
-      1, "left", "bottom"
+      1, 'left', 'bottom',
     );
 
     this.preloadKeys = [];
-    for (let key in game.colors) {
+    for (const key in game.colors) {
       this.preloadKeys.push(new me.Sprite(0, 0, {
-        image : "keys",
-        framewidth : 32,
-        frameheight : 32,
-        anchorPoint : new me.Vector2d(0.5, 0.5)
+        image: 'keys',
+        framewidth: 32,
+        frameheight: 32,
+        anchorPoint: new me.Vector2d(0.5, 0.5),
       }));
     }
 
@@ -111,13 +111,11 @@ game.HUD.KeyItem = me.Renderable.extend({
   /**
   * Update function.
   */
-  update : function(dt) {
+  update(dt) {
     // We don't do anything fancy here, so just
     // return true if the keys array has been updated.
     if (!((this.keys.length == game.data.obtainedKeys.length)
-           && this.keys.every((element, index) => {
-          return element === game.data.obtainedKeys[index];
-    }))) {
+           && this.keys.every((element, index) => element === game.data.obtainedKeys[index]))) {
       this.keys = game.data.obtainedKeys.slice();
 
       return true;
@@ -129,18 +127,20 @@ game.HUD.KeyItem = me.Renderable.extend({
   /**
   * Draw the score.
   */
-  draw : function(context) {
+  draw(context) {
     // This.pos.x, this.pos.y are the relative position
     // from the screen right bottom.
-    this.font.draw(context, "Keys: ", this.pos.x,
-                   me.game.viewport.height + this.pos.y - 25);
+    this.font.draw(
+      context, 'Keys: ', this.pos.x,
+      me.game.viewport.height + this.pos.y - 25,
+    );
 
-    for (let [i, value] of this.keys.entries()) {
+    for (const [i, value] of this.keys.entries()) {
       this.preloadKeys[value].pos.x = this.pos.x + 90 + (32 * i);
       this.preloadKeys[value].pos.y = me.game.viewport.height + this.pos.y - 30;
       this.preloadKeys[value].setAnimationFrame(12 * value);
       this.preloadKeys[value].draw(context);
     }
-  }
+  },
 
 });

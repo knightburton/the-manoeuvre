@@ -1,23 +1,23 @@
 /**
-* Chest Entity.
-*/
+ * Chest Entity.
+ */
 game.ChestEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
+   * Constructor
+   */
+  init(x, y, settings) {
     // Store the color based on the Tiled color information.
     this.color = game.parseColor(settings.color);
     this.chestId = settings.chestId;
 
-    settings.image = "chests";
+    settings.image = 'chests';
     settings.framewidth = 32;
     settings.frameheight = 32;
     settings.anchorPoint = new me.Vector2d(0.5, 0.5);
 
     // Call the constructor.
-    this._super(me.Entity, 'init', [x, y , settings]);
+    this._super(me.Entity, 'init', [x, y, settings]);
     this.name = 'chest';
 
     // Close the chest by default.
@@ -44,9 +44,9 @@ game.ChestEntity = me.Entity.extend({
   },
 
   /**
-  * Open the chest and show the treasure in it.
-  */
-  open : function() {
+   * Open the chest and show the treasure in it.
+   */
+  open() {
     // If the chest is locked.
     if (this.closed) {
       const index = game.data.obtainedKeys.indexOf(this.color);
@@ -75,10 +75,9 @@ game.ChestEntity = me.Entity.extend({
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
-
+   * Update the entity.
+   */
+  update(dt) {
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -90,10 +89,10 @@ game.ChestEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   */
+  onCollision() {
     // Make all other objects solid.
     return false;
-  }
+  },
 });

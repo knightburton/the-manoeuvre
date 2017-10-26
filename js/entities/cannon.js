@@ -1,14 +1,14 @@
 /**
-* Cannon Entity.
-*/
+ * Cannon Entity.
+ */
 game.CannonEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
+   * Constructor
+   */
+  init(x, y, settings) {
     // Set the proper image.
-    settings.image = "cannon";
+    settings.image = 'cannon';
     settings.framewidth = 32;
     settings.frameheight = 64;
     settings.anchorPoint = new me.Vector2d(0.5, 1);
@@ -35,18 +35,18 @@ game.CannonEntity = me.Entity.extend({
   },
 
   /**
-  * Open FIRE!
-  */
-  fire : function() {
+   * Open FIRE!
+   */
+  fire() {
     if (!this.renderable.isCurrentAnimation('fire')) {
       this.renderable.setCurrentAnimation('fire', 'idle');
     }
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
+   * Update the entity.
+   */
+  update(dt) {
     // apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -58,19 +58,21 @@ game.CannonEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler.
-  */
-  onCollision : function(response, other) {
+   * Collision handler.
+   */
+  onCollision(response, other) {
     switch (other.body.collisionType) {
-      case me.collision.types.ENEMY_OBJECT : {
+      case me.collision.types.ENEMY_OBJECT:
         // If the cannonSpike is at the start (spawn) position.
         if (other.name === 'cannonSpike') {
           // Use the fire action.
           this.fire();
         }
-      } break;
+        break;
+      default:
+        break;
     }
     // Make all other objects solid.
     return false;
-  }
+  },
 });

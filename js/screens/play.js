@@ -1,13 +1,14 @@
 game.PlayScreen = me.ScreenObject.extend({
   /**
-  *  Action to perform on state change.
-  */
-  onResetEvent: function() {
-    // Play audio track.
-    //me.audio.playTrack("arpanauts");
-
-    // Load the first level.
-    me.levelDirector.loadLevel("level-one");
+   *  Action to perform on state change.
+   */
+  onResetEvent() {
+    /*
+     * Play audio track.
+     * me.audio.playTrack("arpanauts");
+     * Load the first level.
+     */
+    me.levelDirector.loadLevel('level-one');
 
     // Reset the score.
     game.data.score = 0;
@@ -18,13 +19,15 @@ game.PlayScreen = me.ScreenObject.extend({
   },
 
   /**
-  *  Action to perform when leaving this screen (state change).
-  */
-  onDestroyEvent: function() {
+   *  Action to perform when leaving this screen (state change).
+   */
+  onDestroyEvent() {
     // Remove the HUD from the game world.
     me.game.world.removeChild(this.HUD);
 
-    // Stop the current audio track.
-    //me.audio.stopTrack();
-  }
+    /*
+     * Stop the current audio track.
+     * me.audio.stopTrack();
+     */
+  },
 });

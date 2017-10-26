@@ -1,17 +1,17 @@
 /**
-* Key entitiy.
-*/
+ * Key entitiy.
+ */
 game.KeyEntity = me.CollectableEntity.extend({
 
   /**
-  * Constructor
-  */
-  init: function(x, y, settings) {
+   * Constructor
+   */
+  init(x, y, settings) {
     this.color = game.parseColor(settings.color);
     this.isHidden = settings.isHidden;
     this.chestNumber = settings.chestNumber;
 
-    settings.image = "keys";
+    settings.image = 'keys';
     settings.framewidth = 32;
     settings.frameheight = 32;
 
@@ -20,8 +20,8 @@ game.KeyEntity = me.CollectableEntity.extend({
     settings.shapes = [new me.Rect(5, 11, 22, 10)];
 
     // Call the super constructor.
-    this._super(me.CollectableEntity, "init", [x, y , settings]);
-    this.name = "key";
+    this._super(me.CollectableEntity, 'init', [x, y, settings]);
+    this.name = 'key';
 
     // Set the collision based on the hidden property.
     if (this.isHidden) {
@@ -51,7 +51,7 @@ game.KeyEntity = me.CollectableEntity.extend({
       8 + this.animationLine,
       9 + this.animationLine,
       10 + this.animationLine,
-      11 + this.animationLine
+      11 + this.animationLine,
     ], 200);
 
     // Set the default animation.
@@ -59,23 +59,23 @@ game.KeyEntity = me.CollectableEntity.extend({
   },
 
   /**
-  * Enable the key.
-  */
-  enable : function() {
+   * Enable the key.
+   */
+  enable() {
     this.renderable.alpha = 1;
     this.renderable.flicker(500);
     this.body.collisionType = me.collision.types.COLLECTABLE_OBJECT;
   },
 
   /**
-  * Collision handling.
-  */
-  onCollision : function(/*response*/) {
+   * Collision handling.
+   */
+  onCollision(/* response */) {
     if (game.data.obtainedKeys.indexOf(this.color) === -1) {
       game.data.obtainedKeys.push(this.color);
 
       // Play a key collected sound.
-      me.audio.play("collect");
+      me.audio.play('collect');
     }
 
     // Avoid further collision and delete it.
@@ -85,5 +85,5 @@ game.KeyEntity = me.CollectableEntity.extend({
     me.game.world.removeChild(this);
 
     return false;
-  }
+  },
 });

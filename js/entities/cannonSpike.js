@@ -1,34 +1,33 @@
 /**
-* CannonSpike Entity.
-*/
+ * CannonSpike Entity.
+ */
 game.CannonSpikeEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
-    // Store the area size which is defined in Tiled.
-    let width = settings.width;
-    let height = settings.height;
-
+   * Constructor
+   */
+  init(x, y, settings) {
     // Store the slow mode option.
     this.slowMode = settings.slowMode;
 
     // Load the tileset image.
-    settings.image = "tileset";
+    settings.image = 'tileset';
+
+    settings.width = 32;
+    settings.height = 32;
 
     // Adjust the size setting information to match the sprite size.
-    settings.framewidth = settings.width = 32;
-    settings.frameheight = settings.height = 32;
+    settings.framewidth = 32;
+    settings.frameheight = 32;
     settings.anchorPoint = new me.Vector2d(0.5, 0.5);
 
     // Redefine the shape.
     settings.shapes = [
-      new me.Rect(0, 0, settings.framewidth, settings.frameheight)
+      new me.Rect(0, 0, settings.framewidth, settings.frameheight),
     ];
 
     // Call the parent constructor.
-    this._super(me.Entity, 'init', [x, y , settings]);
+    this._super(me.Entity, 'init', [x, y, settings]);
 
     this.name = 'cannonSpike';
 
@@ -45,7 +44,7 @@ game.CannonSpikeEntity = me.Entity.extend({
     this.body.gravity = -this.body.gravity;
 
     // Set the start/end position based on stored size.
-    this.startY = y + height - settings.frameheight;
+    this.startY = y + settings.height - settings.frameheight;
     this.endY = y;
 
     // Set the vertical position.
@@ -62,9 +61,9 @@ game.CannonSpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
+   * Update the entity.
+   */
+  update(dt) {
     // If the spike at the end of the line.
     if (this.pos.y <= this.endY) {
       // Go back to the start position.
@@ -82,10 +81,10 @@ game.CannonSpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   */
+  onCollision() {
     // Make all other objects solid.
     return false;
-  }
+  },
 });

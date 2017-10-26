@@ -1,26 +1,28 @@
 /**
-* RotarySpike Entity
-*/
+ * RotarySpike Entity
+ */
 game.RotarySpikeEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
-    settings.image = "tileset";
+   * Constructor
+   */
+  init(x, y, settings) {
+    settings.image = 'tileset';
+    settings.width = 32;
+    settings.height = 32;
 
     // Adjust the size setting information to match the sprite size.
-    settings.framewidth = settings.width = 32;
-    settings.frameheight = settings.height = 32;
+    settings.framewidth = settings.width;
+    settings.frameheight = settings.height;
     settings.anchorPoint = new me.Vector2d(0.5, 0.5);
 
     // redefine the shapes.
     settings.shapes = [
-      new me.Rect(0, 0, settings.framewidth, settings.frameheight)
+      new me.Rect(0, 0, settings.framewidth, settings.frameheight),
     ];
 
     // Call the constructor.
-    this._super(me.Entity, 'init', [x, y , settings]);
+    this._super(me.Entity, 'init', [x, y, settings]);
     this.name = 'rotarySpike';
 
     // save the start position.
@@ -54,20 +56,20 @@ game.RotarySpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Calculate the spike actual position based on the circle path.
-  */
-  calculatePosition : function() {
-    this.pos.x = this.circleCenterX
-                 + Math.cos(this.circleAngle * Math.PI / 180)
-                 * this.circleRadius;
+   * Calculate the spike actual position based on the circle path.
+   */
+  calculatePosition() {
+    this.pos.x = this.circleCenterX +
+                 Math.cos(this.circleAngle * Math.PI / 180) *
+                 this.circleRadius;
 
-    this.pos.y = this.circleCenterY
-                 + Math.sin(this.circleAngle
-                 * Math.PI / 180)
-                 * this.circleRadius;
+    this.pos.y = this.circleCenterY +
+                 Math.sin(this.circleAngle *
+                 Math.PI / 180) *
+                 this.circleRadius;
 
     // Reset or incriease the angle.
-    if (this.circleAngle == 0) {
+    if (this.circleAngle === 0) {
       this.circleAngle = 360 - this.circleAngleStep;
     } else {
       this.circleAngle -= this.circleAngleStep;
@@ -75,10 +77,9 @@ game.RotarySpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
-
+   * Update the entity.
+   */
+  update(dt) {
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -90,10 +91,10 @@ game.RotarySpikeEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   */
+  onCollision() {
     // Make all other objects solid.
     return false;
-  }
+  },
 });

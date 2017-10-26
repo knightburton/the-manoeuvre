@@ -1,12 +1,12 @@
 /**
-* Spike Entity.
-*/
+ * Spike Entity.
+ */
 game.SpringEntity = me.Entity.extend({
 
   /**
-  * Constructor
-  */
-  init : function(x, y, settings) {
+   * Constructor
+   */
+  init(x, y, settings) {
     // Set the type based on Tiled information.
     if (settings.isRegularBlock) {
       this.type = 0;
@@ -14,7 +14,7 @@ game.SpringEntity = me.Entity.extend({
       this.type = 1;
     }
 
-    settings.image = "springs";
+    settings.image = 'springs';
     settings.framewidth = 32;
     settings.frameheight = 32;
     settings.anchorPoint = new me.Vector2d(0, 1);
@@ -43,7 +43,7 @@ game.SpringEntity = me.Entity.extend({
       2 + this.animationLine,
       3 + this.animationLine,
       4 + this.animationLine,
-      5 + this.animationLine
+      5 + this.animationLine,
     ], 50);
 
     // Set the current animation.
@@ -51,19 +51,19 @@ game.SpringEntity = me.Entity.extend({
   },
 
   /**
-  * Start a spring specific action
-  * play the push animation.
-  */
-  action : function() {
+   * Start a spring specific action
+   * play the push animation.
+   */
+  action() {
     if (!this.renderable.isCurrentAnimation('push')) {
       this.renderable.setCurrentAnimation('push', 'idle');
     }
   },
 
   /**
-  * Update the entity.
-  */
-  update : function(dt) {
+   * Update the entity.
+   */
+  update(dt) {
     // Apply physics to the body (this moves the entity).
     this.body.update(dt);
 
@@ -75,10 +75,10 @@ game.SpringEntity = me.Entity.extend({
   },
 
   /**
-  * Collision handler
-  */
-  onCollision : function(response, other) {
+   * Collision handler
+   */
+  onCollision() {
     // Make all other objects solid.
     return false;
-  }
+  },
 });
